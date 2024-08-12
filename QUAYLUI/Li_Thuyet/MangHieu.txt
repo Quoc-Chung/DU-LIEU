@@ -1,0 +1,194 @@
+MẢNG HIỆU (DIFFERENCE ARRAY) : 
+
+- Cho mảng A[] có N phần tử, có Q thao tác mỗi thao tác sẽ tăng các 
+phần tử trong đoạn từ chỉ số L tới R của mảng A[] lên K đơn vị. Hãy 
+xác định mảng A[] sau Q thao tác. 
+
+
+3    8    1    4    7     2 
+3    11   4    7    7     2
+0    1    2    3    4     5
+     (         )
+     l, r , k 
+    
+     1  3   3
+- TĂNG ĐOẠN TỪ 1 đến 3 lên k = 3 đơn vị - 
+
+- VÍ DỤ : 
+7   3 
+8  5  8  9  7   6  9 
+0  5  0 
+0  5  0 
+1  5  1 
+
+8  6  9 10  8  7  9 
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+int n,q;
+cin >> n >> q;
+vector <int> a(n);
+for(int i =0;i<n;i++){
+     cin >> a[i];
+}
+while(q--){
+     int l,r,k;
+     cin >> l >> r;
+     for(int i = l ;;i<=r;i++){
+          a[i] += k;
+     }
+}
+
+for(auto x: a){
+     cout << x<< " "; 
+}
+cout << endl;
+return 0; 
+
+}
+
+- CÁCH KHÁC KHÔNG MẤT O(n) mà chỉ mất O(1). 
+- Cách  xây dựng mảng hiệu : 
+   + Có một cấu trúc dữ liệu hiệu quả hơn để giải quyết vấn đề trên, 
+với mỗi truy vấn chỉ mất O(1). 
+   + Gọi mảng D[] là mảng hiệu của mảng A[], trong đó: 
+            D[0] = A[0];
+            D[i] = A[i] - A[i-1] với i >= 1
+
+            Khi đó để khôi phục mảng A[] từ mảng D[], ta chỉ cần tính 
+            mảng cộng dồn của mảng D[] 
+          0      1      2      3      4      5      6
+
+A :       3      8      1      4      7      2      9 
+
+D :       3      5     -7      3      3     -5      7
+
+         
+
+ 
+PRE_D:    3      8      1      4      7      2      9 
+
+
+PRE_D[4] = D[0] + D[1] + D[2] + D[3] + D[4] 
+
+         = A[0] + A[1] - A[0] + A[2] - A[1] + A[3] - A[2] + A[4] - A[3]
+
+         = A[4]
+
+=> PRE_D[4]  = A[4] 
+
+=> PRE_D[i]  = A[i] 
+
+D[0] = A[0]
+D[i] = A[i] - A[i-1]  => A[i] = A[i-1] + D[i]
+
+- MÀ CÔNG THỨC D[i] =  
+
+
+PRE_D[0]  = D[0]
+PRE_D[i]  = PRE_D[i-1] + D[i]  
+
+
+    PRE_D[0] = A[0] = D[0]
+    PRE_D[i] =  A[i] 
+<=> PRE_D[i] =  A[i-1] + D[i] 
+<=> PRE_D[i-1] + D[i] = A[i-1] + D[i] 
+<=> PRE_D[i-1] = A[i-1] 
+
+
+D[L] +=k            k = 3
+D[R+1] -= k
+                        L             R
+          0      1      2      3      4      5      6
+
+A :       3      8      1      4      7      2      9 
+
+D :       3      5     -7      3      3     -5      7
+
+
+D[2] = 1 + k = -7 + 3 = -4 
+
+D[R+1] = D[4+1] = D[5] - k = -5 - 3 =  -8 
+
+- MẢNG D BAN ĐẦU : 
+D :   3     5    -7      3      3     -5      7
+
+- MẢNG D SAU KHI CỘNG : 
+
+D :   3     5    -4      3      3     -8      7 
+
+
+A[i] = D[0] + D[1] + D[2] + D[i]  
+
+
+D[LEFT] + K thì những thằng từ D[LEFT] trở đi đều sẽ được cộng thêm 
+K đơn vị trong mảng cộng dồn của mảng D ( TỨC MẢNG PRE_D[] )
+
+
+- Ở BÊN TRÊN TA RÚT RA ĐƯỢC MẢNG CỘNG DỒN CỦA MẢNG HIỆU SẼ CHO RA MẢNG A BAN ĐẦU 
+
+- MÀ KHI TỪ PHẦN TỬ Ở CHỈ SỐ LEFT , TA CỘNG THÊM K THÌ NHỮNG PHẦN TỬ TỪ SAU 
+PHẦN TỬ Ở CHỈ SỐ LEFT ĐÓ MIỄN NHIÊN SẼ ĐỀU ĐƯỢC TĂNG THÊM K ĐƠN VỊ 
+
+- VÌ BẢN CHẤT CỦA MẢNG CỘNG DỒN LÀ NHỮNG THẰNG Ở SAU SẼ ĐƯỢC THỪA HƯỞNG LẠI NHỮNG THẰNG 
+Ở PHÍA TRƯỚC NÊN 1 THẰNG Ở PHÍA TRƯỚC TĂNG GIÁ TRỊ THÌ MIỄN NHIÊN NHỮNG THẰNG Ở 
+SAU CŨNG ĐƯỢC THỪA HƯỞNG LẠI GIÁ TRỊ CỦA NHỮNG THẰNG TRƯỚC ĐÓ. 
+
+- VÌ TỪ LEFT TRỞ ĐI NÓ ĐỀU BỊ ẢNH HƯỞNG, NÊN KHI TA MUỐN NÓ ẢNH HƯỞNG K MỘT 
+ĐOẠN THÔI (CỤ THỂ LÀ ĐOẠN TỪ LEFT ĐẾN RIGHT ) THÌ TỪ PHẦN TỬ Ở VỊ TRÍ RIGHT + 1 TA SẼ 
+PHẢI TRỪ ĐI MỘT LƯỢNG LÀ K. 
+
+- TA RÚT RA ĐƯỢC CÁCH CODE CẬP NHẬT : 
+            D[LEFT] += K; 
+            D[RIGHT+1] -= K;
+
+7   3 
+8  5  8  9  7   6  9 
+0  5  0 
+0  5  0 
+1  5  1 
+
+8  6  9 10  8  7  9  
+
+#include<bits/>stdc++.h>
+using namespace std;
+int main(){
+     int n, q;
+     cin >> n >> q; 
+     vector<int> a(n); 
+     for(auto &x :a){
+          cin >> x;
+     } 
+     /*- Xây dựng mảng hiệu -*/ 
+     vector<int> D(n); 
+     for(int i =0;i<n;i++){
+      if(i ==0){
+          D[i] = a[i]; 
+      }
+      else{
+          D[i] = a[i] - a[i-1];
+      }
+     }
+     /*- Xây dựng đoạn tăng -*/ 
+     while(q--){
+          int left, right , k;
+          cin >> left >> right >> k;
+          D[left] += k;
+          D[right+1] -= k; 
+     }
+
+     for(int i=0;i<n;i++){
+          if(i==0){
+            a[i] = D[0];
+          }
+          else{
+            a[i] = a[i-1] + D[i];
+          }
+     }
+     for(auto x : a){
+          cout << x << " " <<endl;
+     }
+     return 0; 
+}

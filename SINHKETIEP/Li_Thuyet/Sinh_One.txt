@@ -1,0 +1,106 @@
+- Phương pháp sinh kế tiếp : 
+
++ Sinh các xâu nhị phân có độ dài n
+
++ Sinh tổ hợp chập k của n
+
++ Sinh hoán vị
+
++ Phân hoạch số n thành tổng các số nhỏ hơn hoặc bằng nó
+
++ Chỉnh hợp lặp. 
+
+
+- Liệt kê các xâu nhị phân có độ dài n : n = 3
+    000   => Cấu hình đầu tiên là 3 số 0 -> n bit 0.
+    001
+    010
+    011
+    100
+    101
+    110
+    111  -> Cấu hình cuối cùng là 3 số 1 -> n bit 1.
+
+- Xây dựng tập cấu hình gì đó : 
++ Cấu hình đầu tiên 
++ Cấu hình cuối cùng 
++ Phương pháp sinh 
+
+- MÃ GIẢ : 
+        <Khởi tạo cấu hình đầu tiên> 
+        while(<Khi chưa phải cấu hình cuối cùng >) {
+            <In ra cấu hình hiện tại> 
+            <Sinh ra cấu hình tiếp theo>
+        }
+
+- Quy tắc cộng số nhị phân : 
+    0 + 0 = 0 
+    0 + 1 = 1 + 0 = 1 
+
+    1 + 1 = 0 nhớ 1 
+
+n = 5 : 
+    10111
+   +    1 
+    11000
+
+- Gặp bit thứ n là bit 1 thì nó chuyển thành 0 và dịch sang bên trái
+Cho đến khi gặp bit 0 thì sẽ bật nó thành 1 và kết thúc, còn những 
+thằng còn lại chỉ cần copy xuống là xong 
+   
+   11000
+   11001
+   11010
+- Nó sẽ cố gắng bắt đầu từ cái cấu hình bên phải của cái xâu nhị phân, sau 
+đó nó khi gặp bit 1 thì sẽ chuyển thành bit 0 , nhưng khi gặp bit 0 thì nó 
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int n;
+int a[100], isFinal; 
+
+void KhoiTao(){
+    for(int i=1;i<=n;i++){
+        a[i] = 0;
+    }
+}
+
+void Sinh(){
+    - Bắt đầu từ bit cuối cùng , và đi tìm bit 0 đầu tiên - 
+    int i = n;
+    - Mình viết như này có nghĩa rằng nó sẽ dừng lại khi gặp bit 0 đầu tiên - 
+    while(i == 1 && a[i] == 1){
+        if(a[i] == 1){
+            a[i] == 0;
+        }
+        i--;
+    }
+    - Nếu i là 
+    if(i==0){
+          isFinal = 0;
+    }
+    else{
+        - Vì ở trên vòng while sẽ dừng khi gặp bit 0 
+        a[i] = 1;
+    }
+}
+
+- Nếu tất cả các số đều là số 1 thì cái chỉ số i nó sẽ giảm về 0. 
+
+
+int main(){
+  cin >> n; 
+  isFinal = 1;
+  while(isFinal != 0){
+      for(int i = 1; i<= n;i++){
+            cout << a[i];
+        }
+      cout <<endl;
+     sinh();
+  }
+
+  return 0; 
+
+}

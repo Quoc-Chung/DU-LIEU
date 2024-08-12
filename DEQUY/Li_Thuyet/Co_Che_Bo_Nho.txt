@@ -1,0 +1,53 @@
+- Hàm đệ quy là  hàm  gọi  chính nó. 
+
+long GiaiThua(long x){
+    if( x <= 1){
+        return 1;  
+    }
+    else {
+        return x* GiaiThua(x - 1);
+    }
+}
+
+n! = n * (n -1 )! 
+
+- Trường hợp cơ bản : a <= 1 : f(x) = 1 
+
+- Trường  hợp  thường : a > 1 
+
+- Công thức đệ quy : f(x) = x * f(x-1) 
+
+=> Công thức đệ quy là sự biến tướng của một bài toán lớn ra một bài toán nhỏ có cùng 
+dạng với bài toán lớn và bonet thêm một số thứ để chúng ta có thể hiểu được nó. 
+
+- Hội tụ , chui sâu một hàm lớn về một bài toán cơ sở 
+
+---MAIN--- GiaiThua(4)
+
+GiaiThua(4)  -> đưa ra stack 
+   x = 4 
+
+GiaiThua(3) -> return 3 * 2 bên dưới ( kết thúc )  -> đưa ra stack 
+  x = 3  
+ 
+GiaiThua(2) -> return 2  * 1 bên dưới ( kết thúc ) -> đưa ra stack 
+  x = 2 
+
+GiaiThua(1)   -> return 1 ( kết thúc ) -> đưa ra stack 
+  x = 1 
+
+
+ĐỈNH_STACK ( NƠI MÀ HÀM SẼ CHO RA )
+
+
+------------------------------------------------------------------
+void printNumber(int x, int y = 10) {
+    cout << "x: " << x << ", y: " << y << endl;
+}
+int main() {
+    printNumber(5);       // y được gán giá trị mặc định là 10
+    printNumber(5, 15);   // y được gán giá trị 15
+    return 0;
+}
+------------------------------------------------------------------
+

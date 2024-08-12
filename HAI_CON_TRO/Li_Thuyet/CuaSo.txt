@@ -1,0 +1,398 @@
+- Cửa sổ trượt liên quan rất nhiều tới bài toán hai con trỏ.
+
+= Một đặc điểm cốt lõi để sử dụng phương pháp này là : 
+   + Chúng ta phải xem bài có cho xem dãy con mà chúng ta tìm có liền 
+kề hay không liền kề. 
+
+   + Chúng ta chỉ áp dụng thuật toán này với trường hợp liền kề.
+
++ Đây là một kĩ thuật được dùng trong bài toán xử lí mảng và chuỗi, 
+thực hiện bằng cách áp dụng "HAI CON TRỎ"
+
+- Ý tưởng của bài toán là : 
+   " TÌM RA CỬA SỔ TỐT NHẤT THỎA MÃN ĐIỀU KIỆN ĐỀ BÀI" 
+
+- Khái niệm cửa sổ: 
+
++ Cửa sổ là một khái niệm tương tự mảng con ( Cho một mảng, mảng con 
+là một phần của mảng , sao cho các phân tử : 
+   + LIỀN KỀ NHAU 
+   + THEO THỨ TỰ 
+
+)
+-------------------------------------------------------------------
+
+- Một công thức đặc biệt quan trọng trong việc đếm số mảng con của 
+thuât toán cửa sổ trượt thỏa mãn  điều kiện đề bài: 
+- Nếu một cửa sổ thỏa mãn điều kiện thì số lượng mảng con của cửa sổ
+đó thỏa mãn là  right - left + 1  
+
+<=> CÔNG THỨC NÀY CHỈ ĐÚNG TẠI MỖI BƯỚC TRONG THUẬT TOÁN CỬA SỔ TRƯỢT. 
+
+
+- Công thức này không có sai, nhưng để áp dụng công thức một cách chính
+xác và để đảm bảo bạn hiểu rõ về nó , chúng ta cần phải nhìn lại các chi 
+tiết cụ thể của bài toán. 
+
+   + Giả sử chúng ta có một dãy số : [1, 2 , 3 , 4 ] và điều kiện của chúng
+ta là tổng của các phần tử trong một mảng con không vượt quá 10 
+
+   + Chúng ta sử dụng cửa sổ trượt để duyệt qua dãy này : 
+
+   Ban đầu:
+      left = 0
+      right = 0
+      Tổng của cửa sổ hiện tại: 1
+      Cửa sổ này thỏa mãn điều kiện, vậy số lượng mảng con thỏa mãn là right - left + 1 = 0 - 0 + 1 = 1.
+      => Mảng con: [1]
+
+   Di chuyển right sang phải:
+      left = 0
+      right = 1
+      Tổng của cửa sổ hiện tại: 1 + 2 = 3
+      Cửa sổ này thỏa mãn điều kiện, vậy số lượng mảng con thỏa mãn là right - left + 1 = 1 - 0 + 1 = 2.
+      => Các mảng con: [1, 2], [2]
+
+   Di chuyển right sang phải:
+      left = 0
+      right = 2
+      Tổng của cửa sổ hiện tại: 1 + 2 + 3 = 6
+      Cửa sổ này thỏa mãn điều kiện, vậy số lượng mảng con thỏa mãn là right - left + 1 = 2 - 0 + 1 = 3.
+      => Các mảng con: [1, 2, 3], [2, 3], [3]
+
+   Di chuyển right sang phải:
+      left = 0
+      right = 3
+      Tổng của cửa sổ hiện tại: 1 + 2 + 3 + 4 = 10
+      Cửa sổ này thỏa mãn điều kiện, vậy số lượng mảng con thỏa mãn là right - left + 1 = 3 - 0 + 1 = 4.
+      => Các mảng con: [1, 2, 3, 4], [2, 3, 4], [3, 4], [4]
+
+   Như vậy, tổng số lượng các mảng con thỏa mãn điều kiện là:
+
+   Bước 1: 1
+   Bước 2: 2
+   Bước 3: 3
+   Bước 4: 4
+   => Tổng cộng: 1 + 2 + 3 + 4 = 10
+
+   Công thức right - left + 1 đúng với mỗi bước trong thuật toán cửa sổ trượt. 
+   Điều quan trọng là phải tính toán đúng số lượng mảng con thỏa mãn điều kiện tại mỗi bước khi right di chuyển, 
+   sau đó tổng hợp lại tất cả các bước.
+
+
+   class Program{
+
+      static int Count_Subarray(int [] arr,int k){
+         int left = 0;
+
+         int sum_current =0;
+
+         int count = 0;
+
+         for(int right  = 0; right  < arr.Length; right ++){
+            sum_current +=a[right];
+
+            while(sum_current > k){
+               sum -=a[left];
+               left++; 
+
+               - Viết gọn có thể là : sum -= a[left++];
+            }
+            count += right - left +1;
+         }
+         return count;
+      }
+
+      static void Main(){
+         int [] arr = {1,2,3,4};
+         int k = 10; 
+
+         int result = Count_Subarray(arr, k);
+
+         Console.WriteLine("So mang con thoa man " + result);
+      }
+   }
+
+
+-------------------------------------------------------------------------------
+
++ Đã liên qua đến cửa sổ thì chắc chắn chúng phải liền kề nhau. 
++ Ví dụ một mảng : 1  3  5  2 có các cửa sổ sau : 
+                   1
+                   1  3
+                   1  3  5
+                   1  3  5  2
+
+                   3 
+                   3  5
+                   3  5  2
+
+                   5  
+                   5  2 
+
+                   2 
+
+- Hai thuật ngữ này tương đương nhau : cửa sổ = mảng con. 
+
+- Phương pháp cài đặt cửa sổ trượt : 
+
+1. Xác định con trỏ trái và con trỏ phải 
+( Hai con trỏ này xuât phát ở vị trí  0 )
+
+2. Lặp lại mảng với con trỏ phải để thêm các phần tử vào cửa sổ 
+
+3. Trong vòng lặp nếu điều kiện bị phá vỡ thì ta tăng con trỏ trái 
+
+- MÃ giả của thuật toán : 
+
+function (arr){
+    left = 0;
+    for right in [0,arr.length -1] 
+         - Sử dụng một số logic và điều kiện để thêm biểu thức right vào làm điêu kiện 
+
+           while(left < right ) AND (Không đáp ứng được điều kiện của vấn đề){
+            left ++; 
+           }
+    - Thực hiện một số logic để cập nhật câu trả lời. 
+}
+
+
+DẠNG BÀI KÍCH THƯỚC CỬA SỔ KHÔNG CỐ ĐỊNH : 
+
+- Cho một mảng số nguyên dương nums và một số nguyên k 
+
+- Tìm độ dài của mảng con dài nhất có tổng <= k 
+
+k = 10 
+nums = [1,1,4,9,3,6,6,8] 
+
+
+int Tim_Kiem_Do_Dai(vector <int>& nums , int k){
+    int left = 0, current = 0, ans = 0;
+    for (int right = 0; right< nums.size(); right++){
+        current += nums[right];
+
+        while(current > k){
+            current -= a[left];
+            left++;
+        }
+        ans = max (ans, right - left + 1);
+    }
+    return ans;
+}
+=> Điều kiện thu hẹp cửa sổ của bài này là tổng không được vượt quá k '
+tổng cho phép.
+
+- Với bài này nhớ đúng hai nguyên lí : 
+
+   + Nếu tổng hiện tại vượt quá quy định thì tăng biến left 
+   + Nếu đáp ứng thì tăng biến right để làm dài chuỗi ra. 
+
+
+
+- Cho một chuỗi nhị phân s . Chỉ có du nhát một lần chuyển 0 thành 1 . 
+Sau khi thực hiện việc chuyển , độ dài của chuỗi con dài nhất chỉ chứa 
+1 là bao nhiêu 
+
+s = 10101101101 
+s = 10101111101
+
+
+int Find_length(string s){
+   int left = 0;
+   int current = 0;
+
+   int length = 0;
+   for(int right =0;right < s.length(); right++){
+      if(s[right]=='0'){
+         current++;
+      }
+      while(current > 1){
+         if(a[left] =='0'){
+            current --;
+         }
+         left ++;
+      }
+      length = max(length, right - left + 1);
+   }
+   return length;
+}
+
+1  0  1  0  1  1  0  1  1  0  1 
+0  1  2  3  4  5  6  7  8  9  10 
+
+- Ý tưởng của bài này : Duy trì một cửa sổ gồm các kí tự từ chuỗi 
+đầu vào và mở rộng cửa sổ để bao gồm thêm các kí tự , trong khi 
+đảm bảo rằng trong cửa sổ chỉ có nhiều nhất một kí tự '0' 
+
+
++ left đánh dấu cửa sổ bên trái 
+
++ So_Phan_Tu_0 : Để đém số lượng kí tự '0' trong cửa sổ hiện tại 
+
++ length :Để lưu độ dài của chuỗi con dài nhất chỉ chứa 1 mà chúng ta
+tìm được 
+
+
+- Duyệt qua chuỗi bằng biến 'right' để đánh dấu biên phải của cửa sổ. 
+
++ Nếu gặp kí tự '0', tăng biến curent
++ Trong khi biến current > 1( tức là trong cửa sổ có nhiều hơn 1 kí tự), chúng
+ta thu hẹp cửa sổ bằng cách tăng biến "left" và giảm biến "curent" nếu kí tự ở vị 
+trí left là kí tự '0' 
+
+=> ĐẢm bảo điều kiện thu hẹp cửa sổ của bài này là :Trong cửa sổ chỉ có 
+duy nhaasrt 1 kí tự '0' 
+
+
+- Bài toán số lượng mảng con hay đếm số lượng cửa sổ thỏa mãn: 
++ Cho một mảng số nguyên dương nums và một số nguyên k. 
+- Hãy trả về số lượng mảng con chứa các phần tử được xếp đúng theo 
+thứ tự của mảng gốc , trong đó tích của tất các các phần tử con nhỏ ư
+hơn k 
+
+
++ Với bài toán này : biến curent sẽ lưu trữ tích, 
+
+k = 45 
+nums = [1,6,4,5,2] 
+
+1                          1
+
+6                          2
+1  6 
+
+1  6  4                    3
+6  4 
+4 
+
+4   5                      2 
+5 
+
+
+4   5   2                  3 
+5   2  
+2 
+
+
+
+- Với bài tìm số mảng con (cửa sổ) sao cho tổng của chúng không được 
+nhỏ hơn một giá trị k. 
+
+
+class Program {
+     int [] arr = {1,2,3,4}; 
+     int k = 10;
+
+     int result = Count_Subarray(arr, k);
+
+     Console.WriteLine(result); 
+
+     static int Count_Subarray(int [] arr,int k){
+        int left = 0;
+
+        int sum_current = 0;
+
+        int count =0;
+        for(int right = 0; right < ){
+          sum_current+=a[right];
+          
+          while(sum_current > k){
+            sum -=a[left];
+            left ++;
+
+          }
+
+          count += (right - left ) + 1; 
+        }
+
+        return count;
+     }
+}
+
+
+- Với bài tích thì nó lại tương tự : 
+
+int num_Subarray_Product_Less_Than_K(vector <int> &a,int k){
+   - Nếu tích của nó là 1 hoặc 0 thì chúng ta sẽ không đếm 
+   if(k <=1){
+      return 0;
+   }
+   int left = 0;
+
+   int Tich_Hien_Tai = 0;
+
+   int count = 0;
+   for(int right = 0;right < a.size(); right++){
+      Tich_Hien_Tai *= a[right];
+      while(Tich_Hien_Tai >= k){
+         Tich_Hien_Tai /= a[left];
+         left++;
+      }
+      count = (right - left) +1;
+   } 
+   return count; 
+}
+
+
+- TRƯỜNG HỢP NỮA LÀ KÍCH THƯỚC CỬA SỔ CỐ ĐỊNH : 
+
+- Nghĩa là nó đã cho cửa sổ của chúng ta kích thước cố định là bao nhiêu 
+rồi 
+
+- Con trỏ trái và phải cách nhau một khoảng cố định rồi. 
+
++ Cho mảng số nguyên mums và số nguyên k . Tìm tổng của mảng con có tổng 
+lớn nhất có độ dài là k. 
+
+k = 4
+nums = [3,6,4,-5,9,-1,2] 
+
+       3  6  4  -5                        8     
+          6  4  -5  9                     14 
+             4  -5  9  -1                 7 
+                -5  9  -1  2              5 
+               
+
+- Ta sẽ đi theo từng ngăn , mỗi một ngăn sẽ có kích thước là k 
+
+- Ta tính giá trị ăn theo từng cửa sổ , sau đó chuyển sang cửa sổ mới
+bằng cách xóa đi phần tử đầu cửa sổ và thêm một phần tử vào sau cửa sổ. 
+
+- Đoạn code: k là kích thước của dãy con
+
++ Ta sẽ phải tính tổng của dãy con hiện tại , sau đó sẽ áp dụng cấu 
+trúc thêm và xóa dãy con. 
+
+int Tim_Kiem_Tong_Day_Con_Max(vector<int> &a,int k){
+      int sum_current = 0;
+      for(int i =0;i< k ; i++){
+         current += a[i];
+      }
+
+      int TONG_KET_QUA = 0;
+      for(int i = k ;i < nums.size() ; i++){
+         sum_current += a[i] - a[i - k];
+
+         TONG_KET_QUA = max(TONG_KET_QUA,sum_current ); 
+      }
+
+      return TONG_KET_QUA;
+}
+
+- Tổng kết : 
+
++ Kĩ thuật cửa sổ trượt sử dụng hai con trỏ thêm phần tử vào cửa sổ 
+bằng cách tăng con trỏ phải, xóa phần tử khỏi cửa sổ bằng cách tăng 
+con trỏ trái. 
+
++ Công thức tính toán số lượng cửa sổ: RIGHT - LEFT + 1 
+
++ Dạng bài cho kích thước cửa sổ cố định không cần thiết phải sử dụng
+hai  con  trỏ. 
+
+
+
+
+
+

@@ -1,0 +1,134 @@
+- Trong thuật toán quay lui( backtracking ) , việc "quay lui" được thực hiện bằng
+cách hoàn tác các thay đổi thực hiện trong mỗi bước đệ quy trước khi chuyển khi 
+chuyển sang bước tiếp theo . 
+
+
+void Try(int i) {
+    for (int j = 0; j < n; j++) {
+        x[i] = a[j];
+        if (i == k - 1) {
+            OUT_PUT();
+        } else {
+            Try(i + 1);
+        }
+        // Không cần phải làm gì ở đây để quay lui vì chúng ta không thay đổi trạng thái chung
+    }
+}
+
+Try(0)
+j = 0 ;
+     x[0] = 1;
+     Try(1) 
+          j = 0; 
+          x[1] = 1;
+          - Vì i == k -1 => OUT_PUT;  1 - 1 
+
+          j = 1;
+          x[1] = a[1] = 2; 
+          - Vì i == k -1 => OUT_PUT;  1 - 2
+      - Kết thúc - 
+j = 1 ; 
+     x[0] = a[1] = 2;
+     Try(1)
+         j = 0 ;
+         x[1] = a[0] = 1  
+         - Vì i == 1 = k - 1 => OUT_PUT : 2 - 1 
+         j = 1 ;
+         x[1] = a[1] == 2
+         - Vì i == 2 = k -1 => OUT_PUT : 2 - 2
+      - Kết thúc - 
+          
+         
+- Try(0) chưa thực hiện xong đã gọi đến Try(1), tất nhiên là try(1) cũng chưa 
+được thực hiện xong. 
+- Sau khi Try(1) thực hiện xong hết thì nó lại quay trở về Try(0). 
+
+- Lưu ý, trong một số trường hợp khác của thuật toán quay lui, nếu bạn thực hiện 
+các thay đổi lên trạng thái toàn cục( ví dụ : Thêm phần tử vào một danh sách , đánh 
+dấu phần tử đã sử dụng), sau đó bạn cần phải hoàn tác (undo) các thay đổi này sau khi 
+gọi đệ quy để đảm bảo rằng các bước tiếp theo không bị ảnh hưởng bởi các thay đổi 
+trước đó. 
+
+- CẤU TRÚC UNDO :
+          - Tức là đã sử dụng cái này - 
+           used[j] = true; 
+           x[i] = a[j];
+           Try(i + 1);
+          - Hoàn tác thay đổi , để thử các giá trị khác - 
+           used[j] = false;  
+=> Điều này đảm bảo rằng mỗi bước của đệ quy bắt đầu từ trạng thái như ban đầu, giúp 
+giúp thuật toán thử tất cả các khả năng mà không bị ảnh hưởng bỏi các thay đổi 
+từ các nhánh khác của đệ quy. 
+
+- Với dạng bài  không cần kiểm xoát số truyền vào, thì ban đầu nó sẽ gọi đệ quy một lượt, 
+sau đó 
+
+
+void Try_Khong_Lap(int i){
+    for(int j = 0; j < n ; j++){
+        if(used[j] == false){
+            used[j] = true;
+            x[i] = a[j];
+            if(i == k -1){
+                OUT_PUT();
+            }
+            else{
+                Try(i+1);
+            }
+            used[j] = false;
+        }
+    }
+}
+
+2  2
+
+1  2
+0  1
+
+
+void Try(0){
+    j = 0 ;
+    if(used[0] == false){
+        used[0] = true;
+        x[0] = a[0] = 1;
+        Try(i+1)
+               j = 0;
+               if(used[0] == true) - bỏ qua j = 0
+               j = 1;
+               if(used[1] == false){
+                  used[1] =  true;
+                  x[1] = a[1] = 2;
+                  - IN RA  : 1  - 2 
+
+                  used[1] = false;              
+               }
+        used[0] = false;
+    }
+    j = 1; 
+    if(used[1] = false){
+        used[1] = true;
+        x[0] = a[1] = 2;
+        Try(i+1){
+                j = 0 ;
+                if(used[0] = false){
+                    used[0] = true;
+                    x[1] = a[0] = 1;
+
+                    - IN RA : 2  - 1
+                    used[0] = false;
+                } 
+                j = 1 ;   
+                if(used[1] = true){
+                    - Kết thúc - 
+                }
+        }
+        used[1] = false;
+    }
+}
+      
+
+
+
+
+
+

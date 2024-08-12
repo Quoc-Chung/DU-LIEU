@@ -1,0 +1,176 @@
+** HAI CON TRỎ ** 
+
++ HẦU NHƯ SẼ CÓ LOẠI : 
+<=====================================================
+
+      + LÀM VIỆC TRÊN MỘT MẢNG 
+      + HAI CON TRỎ LEFT, RIGHT CHẠY HAI ĐẦU CỦA MẢNG 
+- Mã giả minh họa : 
+function (arr){
+    left = 0; 
+    right  = arr.length - 1; 
+
+    while left < right 
+        + Thực hiện yêu cầu của bài toán 
+        + Kết hợp với  việc di chuyển các con trỏ 
+
+        1. left++  
+        2. right -- 
+        3. Kết hợp vừa di chuyển left ++ và right -- 
+}
+
+- Một ví dụ điển hình : 
+bool CheckForTarget(vector <int>& nums , int target){
+    int left  = 0;
+    int right = nums.size() -1;
+
+    while(left < right){
+        int current  =  nums[left] ++ nums[right]; 
+        if(current == target){
+            return true;
+        }
+        if(current > target){
+             right --; 
+        }
+        else{
+            left --; 
+        }
+    }
+    return false;
+ }
+
+
+<=====================================================
+      + LÀM VIỆC TRÊN HAI MẢNG 
+      + MỖI CON TRỎ I, J THƯỜNG CHẠY BẮT ĐẦU TỪ ĐẦU MỖI MẢNG
+
+- Mã giả của thuật toán : 
+
+function (arr1 , arr2){
+    i = j = 0 
+    while(i < arr1.length and  j < arr2.legth ){
+        - Xử lí các vấn đề của bài toán kết hợp với việc tăng giảm  
+        1. i++; 
+        2. j++ 
+        3. Tăng kết hợp cả hai 
+    }
+    while (i < arr1.length){
+        - Tiếp tục xử lí các trường hợp còn sót lại - 
+        i++;
+    }
+    while(j < arr2.length){
+        - Tiếp tục xử lí các trường hợp còn sót lại - 
+        j++;
+    }
+}
+
+==========================================================================================
+** CỬA SỔ TRƯỢT ** 
+
+<================================================
+      + DẠNG BÀI KÍCH THƯỚC CỬA SỔ KHÔNG CỐ ĐỊNH 
+
+- Cách giải thông thường : 
+       - left = 0 ;
+       - 1 biến lưu tổng hoặc tích hiện tại của cửa sổ - 
+
+       - 1 biến lưu trữ kết quả ( count , result );
+
+       for(right){
+         -sum += a[right]; 
+         
+         while(sum > k ){
+            sum -= a[left];
+            left++;
+         }
+
+         - Áp dụng công thức đếm số lượng - 
+          result  += right - left +1; 
+       }
+       
+- Công thức RIGHT - LEFT + 1 đúng với mỗi bước trong thuật toán cửa sổ trượt. 
+- Dưới đây là mã giả của thuật toán : 
+
+
+function (arr){
+    left = 0;
+    for right in [0,arr.length -1] 
+         - Sử dụng một số logic và điều kiện để thêm biểu thức right vào làm điêu kiện 
+
+           while(left < right ) AND (Không đáp ứng được điều kiện của vấn đề){
+            left ++; 
+           }
+    - Thực hiện một số logic để cập nhật câu trả lời. 
+}
+
+ <=========================================================================   
+      + DẠNG BÀI KÍCH THƯỚC CỬA SỔ CỐ ĐỊNH ( KÍCH THƯỚC CỬA SỔ CHO TRƯỚC )
+
+- Dạng bài này nó cho trước kích thước xem một cửa sổ có kích thước như nào. 
+
+- Dưới đây là cách giải thông thường : 
+
+
+    int Tim_Kiem_Tong_Day_Con_Max(vector<int> &a,int k){
+        int sum_current = 0;
+        for(int i =0;i< k ; i++){
+            current += a[i];
+        }
+
+        int TONG_KET_QUA = 0;
+        for(int i = k ;i < nums.size() ; i++){
+            sum_current += a[i] - a[i - k];
+
+            TONG_KET_QUA = max(TONG_KET_QUA,sum_current ); 
+        }
+
+        return TONG_KET_QUA;
+    }
+
+- Phân tích các bước giải : 
+
+    1. Khởi tạo 1 biến lưu trữ kết quả cửa sổ ban đầu = 0 
+
+    2. Chạy vòng for tính trước kết quả của cửa sổ đầu tiên. 
+
+    3. Sau đó, ta sẽ sử dụng tà đạo để thêm một phần tử bằng cách tăng 
+    con trỏ phải ( chạy từ k ) , xóa phần tử khỏi cửa sổ bằng cách tăng 
+    con trỏ trái ( i - k ). 
+        sum_current += a[i] - a[i - k];
+
+    4. Áp dụng tính toán và trả về kết quả. 
+
+- Dạng bài cho kích thước cửa sổ cố định không cần thiết phải sử dụng hai 
+con trỏ. 
+
+================================================================================================= 
+- Khai báo vector: 
+
++ Khai báo vector a với n phần tử , mỗi phần tử có giá trị mặc định
+là 0 
+                vector<int> a(n); 
+
+=> Ta vẫn có thể thêm cho vector  này lớn hơn  n phần tử và sau đó thêm 
+các phần tử khác vào vector này. 
+
+
++ Khai báo vector a không có phần tử nào . Kích thước ban đầu của 
+vector là 0: 
+               vector<int> a'   
+
++ Nhập giá trị cho các phần tử trong vector : 
+            cout << "\n Nhập các phần tử trong vector "; 
+            for(int  i = 0; i< n ;i++){
+                cin >> a[i];
+            }
+
++ In ra các phần tử của vector : 
+            for(int i = 0; i < n ;i++){
+                cout<< a[i];
+            }
+
+=> Bản chất của vector này là có thể thay đổi kích thước khi cần. Điều 
+này có nghĩa là bạn có thể thêm bao nhiêu phần tử tùy thích vào vector 
+mà không bị lỗi hoặc giới hạn bởi kích thước ban đầu, bạn muốn thêm bao 
+nhiêu phần tử cũng được hết , vector sẽ tự động cấp phát thêm bộ nhớ để c
+chứa các phần tử mới. 

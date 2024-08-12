@@ -1,0 +1,85 @@
+
+int FUNCTION(int a){
+    return a; 
+}
+
+int funcA();
+int funcB(); 
+int funC();
+double funcD(int a);
+
+
+int main(){
+    cout << FUNCTION<<endl;
+
+    cout << FUNCTION(1) << endl;
+
+    return 0;
+}
+
+int (*TEN_HÀM) (int) = CON TRỎ HÀM NHẬN VÀO 1 BIẾN KIỂU INT VÀ TRẢ VỀ KIỂU INT 
+
+void (*TEN_HÀM) (int, int) = CON TRỎ HÀM NHẬN VÀO HAI BIẾN INT VÀ TRẢ VỀ KIỂU VOID 
+
+- Con trỏ hàm phải được định nghĩa giá trị trước khi sử dụng :
+           CÔNG_THỨC_CON_TRỎ_HÀM = KIỂU_TRẢ_VỀ (*TÊN_CON_TRỎ) (THAM_SỐ) 
+
+           CÔNG_THỨC_CON_TRỎ   = TÊN_HÀM;
+
++ LƯU Ý KIỂU TRẢ  VỀ VÀ THAM_SỐ CỦA CON TRỎ HÀM PHẢI GIỐNG HÀM MÀ NÓ TRỎ ĐẾN. 
+
+
+int funcA();
+int funcB(); 
+int funC();
+double funcD(int a); 
+
+int main(){ 
+    int (*funcPtr) () = funcA(); => Lỗi không dùng dấu ngoặc đơn () sau tên hàm. 
+
+    int (*funcPtrA) () = funcA; => OK , con trỏ funptrA trỏ đến hàm funcA.
+
+    funcPtrA = funcB; => Cũng OK , funcPtrAcũng có thể trỏ đến một hàm khác 
+    có cùng cấu trúc 
+
+    hoặc có thể viết : funcPtrA = &funcB;  
+
+
+    int (*fcnPtr1)() = funcA;  => OK 
+
+    void (*funPtr2)()  = funcA; => Lỗi , kiểu trả về của con trỏ hàm và hàm không 
+    trùng nhau . 
+
+    
+}
+
+Có thể gọi một hàm bằng con trỏ hàm  
+
+using namespace std;
+
+void swap(int &a,int &b){
+    int tmp = a;
+    a = b; 
+    b = tmp; 
+}
+
+int main(){
+
+    void (*CON_TRỎ_SWAP) (int &,int &) = swap;
+
+    int a= 5, b = 10; 
+    
+    cout << "Before : " << a << " " << b << endl; 
+
+    - Gọi hàm tường minh - 
+
+         (*CON_TRỎ_SWAP) (a,b); 
+
+    - Hoặc gọi hàm ngầm định - 
+           CON_TRỎ_SWAP  (a,b);
+
+    cout << "Before : " << a << " " << b << endl; 
+    return 0;     
+}
+
+- 

@@ -1,0 +1,295 @@
+- Cho một dãy  số a[] gồm có n phần tử . Nhiệm vụ của bạn là tính tổng
+các số trong dãy từ vị trí chỉ số left tới vị trí chỉ số right. 
+
+5
+
+1 2 3 4 5 
+
+1
+
+1  3
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n; 
+    cin >> n; 
+
+    vector<int> a(n);
+    for(int i = 0 ;i < n;i++){
+        cin >> a[i];
+    }
+
+    int q;
+    cin >> q;
+    while(q--){
+        int l,r;
+        cin >> l >> r;
+        /*- Vì mảng bắt đầu từ 0 mà đoạn lại bắt đầu từ 1 nên giảm -*/ 
+        l--, r--;
+        ll sum = 0;
+        for(int i = l ; i< r ; i++){
+            sum += a[i];
+        }
+        cout << sum << endl;    => Độ phức tạp là O(n)
+    }  
+}
+
+- Mảng cộng dồn với một truy vấn 0(1). 
+
+- Gọi mảng pre[] là mảng cộng dồn của mảng a[] . Khi đó :
+  pre[i] = a[0] + a[1] + a[i] sẽ lưu tổng các phần tử từ chỉ số 0 tới chỉ 
+số i của mảng a[]. 
+
+- Ta có thể pre[i] thông qua pre[i-1] : 
+            pre[i] = pre[i-1] + a[i]; 
+
+- Tại sao lại có cái này : 
+           pre[i] = a[0] + a[1] + a[2] + ...+ a[i]
+
+                  = a[0] + a[1] + a[2] + ...+ a[i-1] + a[i]
+
+                  = pre[i-1] + a[i]
+
+        => pre[i] = pre[i-1] + a[i] 
+
+- Cách xây dựng : 
+       int pre[n];
+       for(int i=0;i < n ;i++){
+        - Trong trường hợp mảng có 
+            if(i==0){
+                pre[i] = a[i];
+            }
+            else{
+                pre[i] = pre[i-1] + a[i];
+            }
+       } 
+- Cách phác thảo ví dụ : 
+       
+       6
+       1 4 6 2 5 3 
+       0 1 2 3 4 5 
+0   0  => 1
+0   1  => 5
+0   2  => 11
+0   3  => 13
+0   4  => 18
+0   5  => 21 
+
+
+for: 
+   i = 0 
+       pre[0] = a[0] = 1
+   i = 1
+       pre[1] = pre[0] + a[1] = 1 + 4 = 5
+   i = 2
+       pre[2] = pre[1] + a[2] = 5 + 6 = 11
+
+   i = 3 
+
+   i = 4 
+
+   i = 5 
+
+   i = 6 
+ - KẾT THÚC - 
+
++ F[4] là tổng của các cái thằng từ tổng 0 đến n - 1 
+
+
+          {  3        1 }   2       5       7         8 
+                            left                      right
+
+
+           0         1      2       3      4          5
+
+
+F[left -> right] = F[right]   - F [left - 1 ]
+
+F[2- 5]  = F[5] - F[2-1] = F[5] - F[1] 
+
+=> Chỉ cần một vòng lặp để xây dựng mảng F , và từ sau đó trên tất 
+cả các cái truy vấn tĩnh của chúng ta có thể lấy ra được tổng của 
+một đoạn với chỉ tiêu tốn 0(1) phần tử. 
+
+
+=> CÔNG THỨC TỔNG QUÁT : 
+       pre[left -> right] = pre[right] - pre[left - 1];
+
+
+
+- MẢNG CỘNG DỒN TRÊN MẢNG HAI CHIỀU : 
+
++ Đối với mảng hai chiều, khi muốn tính tổng các phần tử trong phạm việc
+của một hình chữ nhật có N hàng và M cột, bạn cần lặp qua N hàng mỗi hàng 
+duyệt qua M cột để tính tổng.
+
++ Độ phức tạp sẽ là O(M * N)
+
++ Giả sử mảng hai chiều ban đầu như sau , ở đây để tiện mình dùng chỉ
+số hàng , cột của mảng bắt đầu từ 1 , các hàng 0 , cột 0 của mảng hai chiều 
+bằng 0. 
+
+     0    1    2    3    4     5
+0    0    0    0    0    0     0
+
+1    0    3    1    2    3     4
+
+2    0    5    (2   1    7)    6
+
+3    0    2    (1   2    2)    3
+ 
+4    0    4    6    5    9     2
+
+
+
+- Tính tổng các phần tử trong ngoặc 
+
+- CÔNG THỨC TÍNH TOÁN : 
+
+int h1, h2;   - hàng 1, hàng 2 
+int c1, c2;   - cột 1, cột 2
+
+a[2][2] + a[2][3] + a[2][4]
+
+a[3][2] + a[3][3] + a[3][4]
+
+
+for(i = h1; i<= h2 ;i++){
+     for(j = c1; j<= c2 ;j++){
+         sum += a[i][j];
+     }
+}
+
+   return sum; 
+
+- NÓ SẼ CHẠY NHƯ NÀY : 
+{
+i = h1;
+     for(j = c1; j<= c2 ;j++){
+
+     }
+i = h2;
+      for(j = c1; j<= c2 ;j++){
+
+     }
+}
+
+
+- Mảng cộng dồn trên mảng hai chiều : Nhận thấy để tính tổng các phần tử 
+trên hàng 1 từ cột 1 tới cột 2 , bạn có thể dùng mảng cộng dồn cho từng 
+hàng. 
+- Khi đó , bạn chỉ cần duyệt qua từng hàng và dùng mảng cộng dồn cho từng 
+hàng của ma trận để tính nhanh tổng các phần tử trên hàng đó. 
+
+- Tính mảng cộng dồn cho từng dòng cho cái mảng hai chiều này rồi với 
+mỗi hàng thì ta chỉ lấy cái phần từ left đến right của cái phần đó thôi. 
+
+
+- Lúc này mỗi một mảng cộng dồn sẽ là một dòng của hàng. 
+
+- Mảng cộng dồn trên mảng hai chiều, giả sử mảng hai chiều của bạn có n hàng 
+và m cột. Bạn cần tính tổng các phần tử trên HCN con bắt đầu từ hàng 1 tới 
+hàng a và từ cột 1 tới cột b. 
+-------------------------------------|
+       cột1    cột2    cột3  cột4    |
+hàng 1                               |
+hàng 2                               |
+hàng 3                               |
+hàng 4                               |
+hàng 5                               |
+-------------------------------------|
+
+pre[a][b] = TỔNG    (a[i][j]);
+            i=1,j = 1     
+
++ pre[a][b] là tổng của các phần tử từ hàng 1 đến cột a và từ cột 1 đến cột b 
+
++ 
+
+- Công thức tính toán : 
+
+        pre[i][j]  = pre[i-1][j] + pre[i][j-1] - pre[i-1][j-1] + a[i][j];
+
+        pre[5][6]  = pre[4][6]   + pre[5][5]   - pre[4][5]     + a[5][6];
+
+        81         = 65          + 68          - 56            + 4  
+
+
+
+pre[2][3]  = a[1][1] + a[1][2] + a[1][3] + a[2][1] + a[2][2] + a[2][3]
+
+           = pre[1][3]                   + pre[a][b-1] = pre[a-1] + pre[b-1] +a[2][3]
+pre[1][3]  = a[1][1] + a[1][2] + a[1][3]
+
+pre[2][2]  = a[1][1] + a[1][2] + a[2][1] + a[2][2] 
+
+pre[1][2] = a[1][1] + a[1][2]
+
+pre[2][3] = a[1][1] + a[1][2] + a[1][3] 
+            +  a[1][1] + a[1][2] + a[2][1] + a[2][2]
+            - a[1][1] + a[1][2]
+            + a[2][3]
+
+pre[4][5] = pre[4][4] + pre[3][5] - pre[3][4] + a[i][j];
+pre[i][j] = pre[i][j-1] + pre[i-1][j] - pre[i-1][j-1] + a[i][j];
+
+                    |
+         i-1,j-1    |   i-1.j
+                    |
+      --------------|--------------
+         i, j -1    |   i,j
+                    |   
+                    |
+
+
+-----------------------------------------------------------------------------------------------------
+HCN(hàng_a1, hàng_a2, cột_b1, cột_b2)  
+
+= pre[hàng_2][cột_2] - pre[hàng_2][cột_1 - 1]  - pre[hàng_1 - 1][cột_2] + pre[hàng_1 - 1][cột_1 - 1]  						
+-----------------------------------------------------------------------------------------------------
+
+
+- HƯỚNG DẪN XÂY DỰNG MẢNG CỘNG DỒN :
+   +  LƯU BẮT ĐẦU TỪ HÀNG 1 VÀ CỘT 1 
+   + CHO TẤT CẢ CÁC PHẦN TỬ BẮT ĐẦU TỪ HÀNG 0 VÀ CỘT 0 BẰNG 0 HẾT. 
+
+
+
+int a[1005][1005];
+int pre[1005][1005];
+
+int n, m;
+void Nhap(){
+    cin >> n >> m;
+    for(int i = 1; i<= n ;i++){
+        for(int j = 1;j <= m ;j++){
+            cin >> a[i][j]
+        }
+    }
+    for(int i =1;i <=n;i++){
+        for(int j = 1;j < m;j++){
+            pre[i][j] = pre[i-1][j] + pre[i][j-1] - pre[i-1][j-1] +a[i][j]
+        }
+    }
+}
+
+----------------------------------------------------------------------------
+
++ XÂY DỰNG MẢNG CỘNG DỒN : 
+int m,n;
+int pre[m+1][n+1];
+memset(pre, 0, sizeof(pre));
+for(int i = 1;i<=m;i++){
+    for(int j = 1;j<=n;j++){
+        pre[i][j] = pre[i-1][j] + pre[i][j-1] - pre[i-1][j-1] + a[i][j]; 
+    }
+}
+
++ TRUY VẤN TRÊN MẢNG CỘNG DỒN : 
+int a, A , b , B; 
+cin >> a >> A >> b >> B; 
+cout << pre[A][B] - pre[a-1][B] - pre[A][b -1]  + pre[a-1][b-1]; 
+
+

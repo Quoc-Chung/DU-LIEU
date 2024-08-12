@@ -1,0 +1,123 @@
+- Đệ quy : 
+  + Đệ quy thường ( Đệ quy không đuôi ) : Là kiểu đệ quy 
+  mà sau khi lời gọi đệ quy , hàm vẫn còn công việc  khác 
+  phải làm 
+  + Trong đệ quy thường, lời gọi đệ quy không phải hành động 
+  cuối cùng của hàm. 
+
+int  GiaiThua(int n){
+    if(n <=1){
+        return 1;
+    }
+    else{
+        return n * GiaiThua(n -1); 
+    }
+}
+
+
+
++ Đệ quy đuôi : Lời gọi đệ quy là hành động cuối cùng 
+của hàm : 
+
+
+int GiaiThua(int n, int  acumulator ){
+    if( n <=1){
+        return  acumulator;
+    }
+    else{
+        return GiaiThua(n-1, n * acumulator);
+
+        - Lời gọi đệ quy là hành động cuối cùng - 
+    }
+}
+
+int Tinh_Giai_Thua(int n){
+     return GiaiThua(n, 1);
+}
+
+int main(){
+    int n = 5; 
+
+    cout << n << factorial(n) << endl;
+}
+
+
++  Đệ quy tuyến tính : Là kiểu đệ quy mà mỗi hàm chỉ gọi 
+lại chính nó một lần trong mỗi lần thực thi. Đây là kiểu 
+đệ quy đơn giản và phổ biến nhất. 
+
+------------------------------------------------------------
+
+- Đệ quy là một vòng lặp vô hạn . Trong một cái hàm thì mình sẽ 
+gọi lại chính cái hàm đó một lần nữa. 
+
++ Đệ quy tuyến tính : Là một loại đệ quy chỉ có duy nhất một lời mời gọi hàm. 
+
+int Tinh_Giai_Thua(int n){
+    if(n == 0){
+        return 1;
+    }
+    else{
+        return n * Tinh_Giai_Thua(n-1);
+    }
+}
+Tinh_Giai_Thua(5) = 5 * Tinh_Giai_Thua(4)
+
+Tinh_Giai_Thua(4) = 4 * Tinh_Giai_Thua(3)
+
+Tinh_Giai_Thua(3) = 3 * Tinh_Giai_Thua(2);
+
+Tinh_Giai_Thua(2) = 2 * Tinh_Giai_Thua(1);
+
+Tinh_Giai_Thua(1) = 1 * Tinh_Giai_Thua(0);
+
+Tinh_Giai_Thua(0) = 1 
+
+
++ Đệ quy nhị phân : Gọi hàm hai lần ( Nó có thể cho mỗi trường hợp là gọi một hàm khác nhau.) 
+
+
++ Đệ quy hỗ tương : 
+
+void Xuat1(int n);
+void Xuat2(int n);
+
+void  Xuat1(int n){
+    if(n > 0){
+        cout <<n << "  ";
+        Xuat2(n-1);
+    }
+}
+
+void Xuat2(int n){
+    if(n  > 1){
+        cout << n << " "; 
+        Xuat1(n-2);
+    }
+
+}
+
+int main(){
+    Xuat1(6);
+}
+
+Xuat1(6) {
+    if( n  > 0){
+        - in  ra  6 - 
+        Xuat2(5);
+               if(n > 1){
+                   - in ra 5 - 
+                   Xuat1(3){
+                       if(3 > 0){
+                            -in ra 3 - 
+                            Xuat2(2){
+                                if(2 > 1){
+
+                                    
+                                }
+                            }
+                       }
+                   }
+               }
+    }
+}

@@ -1,0 +1,294 @@
+- Là kĩ thuật được sử dụng trong bài toán xử lí mảng và 
+chuỗi. 
+
+- Kĩ thuật đề cập đến việc sử dụng hai biến số nguyên mà cả 
+hai đều di chuyển dọc theo một đối tượng lặp. 
+
+- Bài toán 1: Lặp trên một đối tượng (TỨC LÀ CHỈ LÀM VIỆC VỚI MỘT MẢNG ) 
+        <HIỂU ĐƠN GIẢN LÀ HAI CON TRỎ TẬP  TRUNG VÀO MỘT MẢNG > 
+ 1. Một con trỏ bắt đầu ở chỉ số đầu, con còn lại bắt 
+đầu ở chỉ số cuối 
+ 2. Sử dụng vòng lặp While cho đến khi hai con trỏ đứng 
+ở cùng một chỉ số. 
+ 3. Di chuyển con trỏ này tới con trỏ kia trong mỗi vòng lặp
+
+=> {
+    + Con trỏ left từ chỉ số 0 
+    + Con trỏ right từ chỉ số n - 1 
+}-----------------------------------------------------
++ LÀM VIỆC TRÊN MỘT MẢNG 
++ HAI CON TRỎ CHẠY HAI ĐẦU 
+
+- Mã giả minh họa : 
+function (arr){
+    left = 0; 
+    right  = arr.length - 1; 
+
+    while left < right 
+        + Thực hiện yêu cầu của bài toán 
+        + Kết hợp với  việc di chuyển các con trỏ 
+
+        1. left++  
+        2. right -- 
+        3. Kết hợp vừa di chuyển left ++ và right -- 
+}
+
+----------------------------------------------------
+
+- Ví dụ : Viết hàm trả về true nếu chuỗi là chuỗi palindrome, nếu không 
+sẽ trả về false 
+
+- Ví dụ, ta có hai chuỗi : tekket , chunggnuhc 
+
+ tt   ee   kk => Suy ra chuỗi 
+
+bool CheckIfPalindrome (string s){
+    int  left = 0; 
+    int right = s.size() - 1; 
+
+    while(left < right){
+        if(a[left] != s[right]){
+            return false;
+        }
+        left ++; 
+        right --; 
+    }
+    return true; 
+}
+- Cho một mảng đã sắp xếp gồm các số nguyên phân biệt và số nguyên 
+target . 
+
++ Trả về true nếu tồn tại một cặp số có tổng bằng target 
++ Ngược lại trả về false
+
+
+1 3 4 8 9 target = 11 
+
+- Cách làm  : 
++ Cho con trỏ left chạy từ 0 
++ Cho con trỏ right chạy từ n -1 
+
+- So sánh nếu a[left] + a[right] < target thì : 
+        + Tăng left lên 
+
+          nếu a[left] + a[right] > target thì : 
+        + Giảm right xuống 
+
+          nếu a[left] + a[right] == target thì : 
+        + Dừng và xuất :> 
+
+
+
+bool CheckForTarget(vector <int>& nums , int target){
+    int left  = 0;
+    int right = nums.size() -1;
+
+    while(left < right){
+        int current  =  nums[left] ++ nums[right]; 
+        if(current == target){
+            return true;
+        }
+        if(current > target){
+             right --; 
+        }
+        else{
+            left --; 
+        }
+    }
+    return false;
+ }
+ 
+
+- Cài đặt hai con trỏ bài toán thứ hai : Bài toán với hai đối tượng lặp 
+( TỨC LÀ LÀM VIỆC TRÊN HAI MẢNG MÕI MẢNG SẼ CÓ MỘT CON TRỎ LÀM VIỆC CÙNG  )
+
+    + Con trỏ i làm việc với mảng thứ nhất   
+    + Con trỏ j làm việc với mảng thứ hai 
+    + Thông thường thì hai con trỏ sẽ xuất phát từ đầu của mỗi mảng. 
+
++ LÀM VIỆC TRÊN HAI MẢNG 
+
+- Mã giả của thuật toán : 
+
+function (arr1 , arr2){
+    i = j = 0 
+    while(i < arr1.length and  j < arr2.legth ){
+        - Xử lí các vấn đề của bài toán kết hợp với việc tăng giảm  
+        1. i++; 
+        2. j++ 
+        3. Tăng kết hợp cả hai 
+    }
+    while (i < arr1.length){
+        - Tiếp tục xử lí các trường hợp còn sót lại - 
+        i++;
+    }
+    while(j < arr2.length){
+        - Tiếp tục xử lí các trường hợp còn sót lại - 
+        j++;
+    }
+}
+
+
+- Cho hai mảng số nguyên đã sắp xếp . Trộn hai mảng và trả về mảng mới 
+đã được sắp xếp. 
+4
+1  3 4  9 
+6
+2 6 9 10 12 15
+ 
+=> 1 2 3 4 5 6 9 11 12 15
+
+
+
+---------------------------
+- Kiểm tra dãy con : Cho hai chuỗi s và t , trả về true nếu s là một dãy 
+con của t , ngược lại trả về false; 
+
+
+chim
+conchimto
+=> true 
+
+chung 
+quoctrung
+=> false
+
+
+bool Kiem_Tra_Day_Con(string s, string t){
+    int i = 0, j = 0; 
+    while(i < s.size() && j < s.size()){
+        if(s[i] == t[j]){
+            i++;
+        }
+        j++
+    }
+    return i== s.size();
+}
+-Mô tả thuật toán chạy 
+    c  h  i  m 
+    0  1  2  3
+    i
+
+    c  o  n  c  h  i  m  t  o 
+    0  1  2  3  4  5  6  7  8 
+    j
+
+Kiem_Tra_Day_Con(chim,conchimto){
+    i = 0, j = 0;
+
+    while(i< 3 && j < 8){
+        if(c == c){
+           i++ ; (i tại 1)
+        }
+        j ++; j tại vị trí 1 
+
+
+        if(h!= 0){
+          i giữ nguyên
+        }
+        j++; ( j tại 2)
+
+
+        if(h !- n){
+            i giữ nguyên
+        }
+        j++; (j tại 3)
+    }
+}
+
+
+
+void Xu_Li(int a[] , int b[],int n, int m){
+   int result = 0;
+   int i = 0, j = 0; 
+   while(i< n && j < m){
+    if(a[i] == b[j]){
+        i++;
+    }else{
+        result += j * i; 
+        j++;
+    }
+   }
+   cout << result << endl;  
+}
+/*
+   8  7
+
+   0    1    2    3    4    5     6    7 
+
+   1    1    3    3    3    5     8    8 
+   1    3    3    4    5    5     5
+
+
+ result = 0; 
+ i = 0 , j = 0; 
+
+while(i < 8 && j < 7 ){
+    if(1 == 1){
+        i = 1
+    }
+    if(a[1] = 1 == a[j]){
+        i = 2
+    }
+    if(a[2] != a[j]){
+        j = 1;
+        result += 1 * 2 = 2 
+    }
+
+    if(a[2] = 3  == b[1] =3 ){
+        i = 3; 
+        
+    }
+}
+---------------------------------------------------------
+
+ int left = 0;
+ int Tong_Hien_Tai = 0;
+ int result = 0;
+  
+ for(int right = 0;  right < n ; right++){
+    Tong_Hien_Tai+= a[right];
+    while(Tong_Hien_Tai > k ){
+        Tong_Hien_Tai -= a[left++];
+    }
+    result = max(result, right - left + 1);
+ }
+/* 
+
+7 20 
+2 6 4 3 6 8 9
+0 1 2 3 4 5 6 
+
+left = 0;
+Tong_Hien_Tai = 0 ; 
+result = 0;
+
+for(int right = 0; right< 7; right++){
+    + right = 0;
+        Tong_Hien_Tai += 2 = 2 
+        result = max(0, 0 - 0 +1 ) = 1; 
+    + right = 1; 
+        Tong_Hien_Tai += 6 = 2 + 6 = 8
+        result = max(1,1-0 +1) = 2; 
+
+    + right = 2; 
+        Tong_Hien_Tai += 4 = 8 + 4 = 12
+        result = max(2, 2 - 0 +1 ) = 3; 
+
+    + right = 3; 
+        Tong_Hien_Tai += 3 = 15;
+        result = max (3,3-0+1) = 4;
+
+    + right = 4; 
+        Tong_Hien_Tai += 6 = 15 + 6 = 21 
+        while(Tong_Hien_Tai > 20){
+            Tong_Hien_Tai -= a[0 ]= 21 - a[0] =  21 -2 = 19; 
+            left = 1;
+        }
+        result = max(4, 4- 1 + 1 ) = 4;
+    + right = 5; 
+
+    + right = 6; 
+
+    + right = 7 
+}

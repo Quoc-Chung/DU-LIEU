@@ -1,0 +1,142 @@
+- Hàm so sánh khi sử dụng hàm sort chính là tham số thứ 3 mà bạn muốn truyền 
+vào hàm sort khi sắp xếp mảng hoặc sắp xếp vector. 
+
+- Hàm này có kiểu trả về là true  hoặc false và có 2 tham số với kiểu dữ liệu 
+tương ứng với mảng mà bạn muốn sắp xếp. 
+
+- Tên của hàm so sánh bạn tự đặt , thông thường mình hay đặt là cmp :> 
+
+- Cú pháp : 
+          - HẦU NHƯ HAI KIỂU DỮ LIỆU NÀY PHẢI GIỐNG NHAU - 
+           bool cmp (KIỂU_DỮ_LIỆU   x , KIỂU_DỮ_LIỆU y){
+               - logic -  
+
+           }
+
+- Logic khi trả về của hàm so sánh : 
+       ======================================================
+       ======================================================
+       ------------------------------------------------------
+        x đứng trước y  => x .... y  => hàm phải trả về true 
+
+        x đứng sau   y  => y .... x  => hàm phải trả về false 
+
+       -------------------------------------------------------
+       =======================================================
+       =======================================================
+=> x và y ở đây bạn có thể coi như đó là 2 giá trị trong mảng mà bạn cần 
+sáp xếp , khi sắp xếp ta cần so sánh giá trị giữa hai phần tử này. 
+
+=> Phần tử x muốn đứng trước phần tử y thì " X PHẢI CÓ GIÁ TRỊ NHỎ HƠN Y " 
+   VD : x = 3 , y = 4 thì rõ ràng x < y phải đúng , phải return true; 
+
+   Phần tử x muốn đứng sau phần tử  y thì " X PHẢI CÓ GIÁ TRỊ LỚN HƠN Y " 
+   VD : x  = 4 , y = 3 thì rõ ràng x > y phải đúng, phải return true; 
+
+
+    SẮP XẾP TĂNG DẦN: SỐ ĐỨNG TRƯỚC PHẢI NHỎ HƠN SỐ ĐỨNG SAU 
+                      (SỐ X PHẢI NHỎ HƠN SỐ Y )
+            bool cmp (KIỂU_DỮ_LIỆU   x , KIỂU_DỮ_LIỆU y){
+                    if(x < y){
+                        return true;
+                    } 
+                    else{
+                        return false;
+                    }
+            }
+    SẮP XẾP GIẢM DẦN: SỐ ĐỨNG TRƯỚC PHẢI LỚN HƠN SÓ ĐỨNG SAU 
+                      ( SỐ X PHẢI  LỚN HƠN SỐ Y )
+            bool cmp (KIỂU_DỮ_LIỆU   x , KIỂU_DỮ_LIỆU y){
+                    if(x > y){
+                        return true;
+                    } 
+                    else{
+                        return false;
+                    }
+            }
+
+- NÓI CHUNG CỨ NHỚ LỚN HƠN LÀ GIẢM , NHỎ HƠN LÀ TĂNG - 
+
+= ĐÂY ĐƯỢC XEM LÀ MỘT NGUYÊN LÍ TRONG QUY TẮC NGƯỢC = 
+
+- MỘT VÍ DỤ TỔNG QUÁT HƠN : 
++ SẮP XẾP: 
+         + chẵn đứng trước, lẻ đứng sau  -> số chẵn phải nhỏ hơn số lẻ 
+         + chẵn giảm dần, lẻ tăng dần   -> Số chẵn phải 
+
+         bool cmp(int a,int b){
+            if(x % 2 == 0 && y %2 != 0) return x  < y;
+            if(x %2 != 0 && y %2 != 0 ) return x  > y; 
+
+            if(x %2 == 0 && y %2 ==0){
+                return x > y;
+            } 
+            if(x %2 != 0 && y %2 !=0){
+                return x  < y;
+            }
+         }
+
+- KẾT HỢP PAIR VỚI SET - 
+    set<pair<int, int>> s;
+
+    s.insert({1, 2});
+    s.insert({2, 1});
+    s.insert({3, 3});
+
+    for (const auto &p : s) {
+        cout << "(" << p.first << ", " << p.second << ") ";
+    }
+
+- KẾT HỢP PAIR VỚI MAP - 
+    map<pair<int, int>, int> m;
+            KEY         VALUE 
+
+    m[make_pair(1, 2)] = 3;
+    m[make_pair(2, 1)] = 4;
+
+    for (const auto &entry : m) {
+        cout << "(" << entry.first.first << ", " << entry.first.second << ") : " << entry.second << endl;
+    }
+
+- KẾT HỢP PAIR VỚI STACK : 
+    stack<pair<int, int>> st;
+
+    st.push({1, 2});
+    st.push({2, 1});
+    st.push({3, 3});
+
+    while (!st.empty()) {
+        pair<int, int> p = st.top();
+        st.pop();
+        cout << "(" << p.first << ", " << p.second << ") ";
+    }
+
+- KẾT HỢP PAIR VỚI QUEUE : 
+
+    queue<pair<int, int>> q;
+
+    q.push({1, 2});
+    q.push({2, 1});
+    q.push({3, 3});
+
+    while (!q.empty()) {
+        pair<int, int> p = q.front();
+        q.pop();
+        cout << "(" << p.first << ", " << p.second << ") ";
+    }
+
+- KẾT HỢP PAIR VỚI HÀNG ĐỢI ƯU TIÊN: 
+    priority_queue<pair<int, int>> pq;
+
+    pq.push({1, 2});
+    pq.push({2, 1});
+    pq.push({3, 3});
+
+    while (!pq.empty()) {
+        pair<int, int> p = pq.top();
+        pq.pop();
+        cout << "(" << p.first << ", " << p.second << ") ";
+    }
+
+
+    

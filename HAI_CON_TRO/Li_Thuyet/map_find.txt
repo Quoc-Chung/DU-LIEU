@@ -1,0 +1,30 @@
+- Map được sử dụng để tìm kiếm một phần tử với khóa cụ thể. 
+
+// Khởi tạo một map với các khóa kiểu int và các giá trị kiểu string
+    map<int, string> myMap;
+
+    // Thêm các phần tử vào map
+    myMap[1] = "apple";
+    myMap[2] = "banana";
+    myMap[3] = "orange";
+
+    // Tìm một phần tử với khóa cụ thể
+    int key = 2;
+    auto it = myMap.find(key);
+
+    // Kiểm tra xem phần tử có tồn tại hay không
+    if (it != myMap.end()) {
+        cout << "Found: " << it->first << " -> " << it->second << endl;
+    } else {
+        cout << "Key " << key << " not found in the map." << endl;
+    }
+
+    // Thử tìm một phần tử không tồn tại
+    key = 4;
+    it = myMap.find(key);
+
+    if (it != myMap.end()) {
+        cout << "Found: " << it->first << " -> " << it->second << endl;
+    } else {
+        cout << "Key " << key << " not found in the map." << endl;
+    }

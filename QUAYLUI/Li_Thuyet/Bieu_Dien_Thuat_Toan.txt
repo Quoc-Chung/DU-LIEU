@@ -1,0 +1,210 @@
+- Biểu diễn thuật toán quay lui : 
+
+X = (x1,x2,x3,..., xn): 
++ Ứng với mỗi thành phần xi , ta có ni khả năng cần lựa  chọn.
++ Ứng với mỗi khả năng j thuộc ni để chọn cho thành phần
+xi ta cần : 
+    + Kiểm tra xem j có được chấp nhận cho  xi hay không. 
+              + Nếu j được chấp nhận thì ta xác định xi = j 
+              + Nếu i là thành phần cuối cùng của i == n, ta ghi nhận 
+nghiệm và tiến hành in ra cấu hình 
+              + Nếu i chưa phải là cuối cùng thì ta xác định 
+thành phần i + 1
+
+- Nếu không có khả năng nào được chấp nhận thì ta quay lại bước trước đó. 
+
+- Thuật toán tổng quát: 
+
+BACKTRACKKING (int i){
+    for(int j=<khả năng 1> ; j <= n; i++){
+        if(- NẾU CHẤP NHẬN KHẢ NĂNG j - ){
+            X[i] = j;
+            if(i == n){
+                IN_CẤU_HÌNH();
+            }
+            else{
+                BACKTRACKKING(i+1);
+            }
+
+        }
+    }
+}
+     
+- Chúng ta hãy đi tìm hiểu xem nó đang quay lại ở chỗ nào - 
+
+void BACK(int i){
+   for(int j =0;j<=1;j++){
+        x[i] = j;
+        if(i == n){
+            Output();
+        }
+        else {
+            BACK(i+1);
+        }
+   }
+}
+
+- Ban đầu chúng ta sẽ gọi : BACK(1) - COI N = 3
+
+
+BACK(i = 1)
+         j = 0;
+            x[1] = 0;
+            - Không in ra - 
+            BACK(i = 2)
+                j = 0;
+                    x[2] = 0;
+                    - Không in ra- 
+                    BACK(i = 3)
+                           j = 0;
+                               x[3] = 0
+                               -IN_CẤU HÌNH 0 0 0 
+                               - KẾT THÚC - 
+                           j = 1;
+                               x[3] = 1;
+                               - IN_CẤU_HÌNH 0  0  1
+                               - KẾT THÚC -
+
+                - KẾT THÚC -
+                j = 1; 
+                    x[2] = 1;
+                    - Không in ra - 
+                    BACK(3)
+                           j = 0; 
+                                x[3] = 0
+                                - IN CẤU HÌNH : 0 1 0 
+                                - KẾT THÚC - 
+                           j = 1;
+                                x[3] = 1 
+                                - IN CẤU HÌNH : 0 1 1
+                                - KẾT THÚC - 
+                - KẾT THÚC -  
+
+         - KẾT THÚC -                     
+         j = 1
+             x[1] = 1; 
+             - Không in ra - 
+             BACK(2);
+
++ OUT_PUT: 
+     0   0   0 
+
+     0   0   1  
+  
+     0   1   0 
+
+     0   1   1 
+
+
+- Cứ như thế thì nó sẽ được gọi là thuật toán quay lui : 
++ Bài này thì cấu hình của nó chỉ gồm các số 0 và 1 
++ Với bài in ra hoán vị thì nó sẽ bao gồm các số từ 1 đến n 
+      + Để cho nó không bị sử dụng lại thì ta tạo một mảng đánh dấu trước khi đưa 
+một trường hợp vào cấu hình thì sẽ đánh dấu nó là đã được sử dụng rồi. 
+
+
+
+- Trong quá trình chọn phần tử : Khi bạn chọn một phần tử (ví dụ 
+j ) và đánh dấu nó là được chọn (check[j] = 1 ) , bạn đảm bảo rằng 
+phần tử này được chọn lại trong bước tiếp theo của đệ quy. 
+=> Nghĩa là khi chửa quay lui tức là phần xuôi thì nó sẽ không được 
+chọn lại 
+
+- Sau khi hoàn thành một nhánh của cây (Hiểu đơn giản là chạy cái
+câu lệnh if in ra) (HAY BAO GỒM CẢ VIỆC GỌI ĐỆ QUY VÀ XỬ LÍ KẾT QUẢ)
+=> Bạn cần phải "bỏ chọn" phần tử "j" (Đặt check[j] = 0) 
+- Điều này để đảm bảo rằng các nhánh khác của cây tìm kiếm có thể chọn 
+các phần tử j và thử các hoán vị khác. 
+
+
+void Try(int i){    - Ta cứ coi như ta sẽ làm việc với n = 3 - 
+   for (int  j =1; j<= n ;j++){
+        if(check[j] ==0){
+            check[j] = 1; 
+            a[i] = j;
+
+            if( i == n){
+                IN_RA_CAU_HINH();
+            }
+            else{
+                Try(i+1);
+            }
+            check[j] = 0;  
+       }
+   }
+}
+
+
+Try (i = 1 )
+           j = 1; 
+                if(check[1] = 0){
+                    check[1] = 1; - coi như số 1 được sử dụng - 
+                    a[1] = 1;
+
+                    - Không in - 
+                    Try(i = 2 )
+                              j = 1;
+                                   if(check[1] != 0)
+                                   - Kết thúc - 
+                                
+                              j = 2;
+                                   if(check[2] == 0)
+                                         check[2] = 1; - coi như số 2 đã được sử dụng -
+                                         - Chưa in - 
+                                         Try(i = 3) 
+                                                  j = 1;
+                                                  if(vi phạm)
+                                                  - Kết thúc - 
+
+                                                  j = 2; 
+                                                  if(vi phạm)
+                                                  - Kết thúc - 
+
+
+                                                  j = 3; 
+                                                  if(check[3] == 0){
+                                                     check[3] = 1; - coi như số 3 đã được sử dụng - 
+
+                                                     in ra 1  2  3
+
+                                                     - Kết thúc- 
+                                                     check[3] == 0 ;
+                                                  }   
+                                         - Kết thúc - 
+                                         check[2] = 0;                                              
+                              j = 3;  
+                                   if(check[3] == 0){
+                                           check[3] = 1; - coi như 3 đã dùng - 
+                                            a[2] = 3;
+                                            - chưa đủ cấu hình - 
+                                            Try(i = 3)
+                                                     j = 1; 
+                                                     Vì 1 đã được sử dụng nên bỏ qua
+
+
+                                                     j = 2;
+                                                          if(check[2] == 0){
+                                                            check[2] = 1;
+                                                            a[3] =2 ;
+
+                                                            In ra 1 cấu hình 1  3 2  
+                                                            - Kết thúc -
+
+                                                            check[2] = 0; 
+                                                          } 
+
+                                                     j = 3; 
+
+                                            
+                                           check[3] = 0;
+                                   } 
+                              
+
+                }
+
+           j = 2;
+
+           j = 3;
+         
+- Nói chung cứ in ra một cấu hình thì chúng ta lại phải trả 1 giá trị về trạng thái chưa sử dụng. 
+

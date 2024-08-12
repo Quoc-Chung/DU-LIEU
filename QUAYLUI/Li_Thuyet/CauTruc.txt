@@ -1,0 +1,70 @@
+- Quay lui (Backtracking) : là một phương pháp tìm nghiệm của bài
+toán bằng cách thử từng phương án cho đến khi tìm thấy lời giải đúng. 
+
++ Lời giải của bài toán có thể biểu diễn nó thành 1 vector : 
+           x = { x1, x2, x3, x_k }
+
+    + Mỗi thành phần x[i] trong vector nghiệm sẽ nhận giá trị trong một 
+    miền giá trị nào đó. 
+
+    + Mỗi quan hệ ràng buộc giữa các thành phần nghiệm (nếu có).
+    + Mối quan hệ ở đây có thể hiểu là nếu ta xác định mối quan hệ x rồi
+thì chúng ta không được xác định thêm mối quan hệ y nữa, kiểu như chúng 
+ta không được chọn các phần tử trùng lặp .
+
+x1 
+     - Cái này sẽ có mối quan hệ với cái kia - 
+x2 
+
+=======================================================================
+- Chỉnh hợp lặp : Chỉnh hợp lặp chập k của n phần tử là một tập hợp gồm 
+k phần tử được chọn từ n  phần tử , có xét đến thứ tự và các phần tử 
+được chọn không cần phải khác nhau. 
+
+- VD : tập n = 2 phần tử {1,2} có các chỉnh hợp lặp chập k = 2 là: 
+=> {1,1} , {1,2} , {2,1} , {2,2} 
+
+- INPUT:
+     + Dòng đầu tiên chứa 2 số nguyên dương n và k.  
+
+- OUTPUT: 
+     + Dòng đầu tiên chứa số lượng chỉnh hợp lặp chập k của n. 
+     + Mỗi dòng tiếp theo chứa một chỉnh hợp lặp chập k của tập 
+n phần tử. 
+
+
+4  
+1 1 
+1 2 
+2 1
+2 2 
+
+A = {1 , 2}                A = { 1, 2 ,3}
+
+n   k 
+2   2 
+
+1  1                       1  1  
+1  2                       1  2
+2  1                       1  3
+2  2                       2  1 
+                           2  2 
+                           2  3 
+                           3  1 
+                           3  2 
+                           3  3 
+- Với bài này không cần đánh dấu đã dùng số này chưa vì chúng ta có 
+thể : 
+
+void Try(int i) {
+    for (int j = 0; j < n; j++) {
+        x[i] = a[j];
+        if (i == k - 1) {
+            OUT_PUT();
+        } else {
+            Try(i + 1);
+        }
+    }
+}
+
+

@@ -1,0 +1,64 @@
+- Tham số mặc định là một giá trị mà một hàm có thể sử 
+dụng nếu không có giá trị nào được truyền vào khi hàm đó 
+được gọi. 
+
+- Nghĩa là khi ta định nghĩa cái tham số đó trong hàm thì  
+dù ta có dùng hay không dùng thì nó vẫn tồn tại ở đây. 
+
+void printUserInfo(string name, int age = 18) {
+    cout << "Name: " << name << ", Age: " << age << endl;
+}
+
+int main() {
+    
+    - Sử dụng giá trị mặc định cho tuổi - 
+    printUserInfo("Alice");     - In ra tuổi mặc định 18 
+
+    - Sử dụng giá trị mặc định cho tuổi 0 
+    printUserInfo("Bob", 25);   - In ra tuổi 25 
+  
+}
+
+- Một số lưu ý khi sử dụng : 
+
++ Các tham số mặc định phải được  khai báo từ phải sang trái 
+
+                               <----------< ---< -------<-- 
+TÊN_HÀM (tham số bình thường, tham số mặc định 2 , tham số mặc định 1) 
+
++ Tham số mặc định chỉ cần được khai báo trong định nghĩa hoặc 
+khai báo hàm , không cần có cả hai , thông thường, chúng được 
+khai báo  trong định nghĩa hàm. 
+
+    void exampleFunction(int a, int b = 10); // Khai báo với tham số mặc định
+    void exampleFunction(int a, int b) {
+        // Định nghĩa hàm, không cần lặp lại giá trị mặc định
+    }
+
+
+- Đặc điểm của tham số mặc định : 
+
++ Giá trị mặc định phải là một số cụ thể chứ không được sinh ra  
+từ bất kì một hàm nào ( hoặc định nghĩa từ một hàm trả về nào ). 
+
+    int getDefault() {
+        return 10;
+    }
+    
+    - Không hợp lệ vì getDefault() không phải là hằng số - 
+    void func(int a, int b = getDefault()); 
+
+
+class Base {
+    public:
+        void func(int a, int b = 10);
+};
+
+class Derived : public Base {
+    public:
+        void func(int a, int b = 20); // Không kế thừa giá trị mặc định từ Base
+};
+
+- Trong kế thừa, nếu một lớp dẫn xuất ghi đè một hàm từ lớp cơ sở 
+, giá trị mặc định không được kế thừa, bạn cần phải cung cấp giá trị 
+mặc định mới trong lớp dẫn xuất nếu cần. 

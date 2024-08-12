@@ -1,0 +1,73 @@
+- Điều kiện áp dụng thuật toán đệ quy : 
+  + Có thể giải được bài toán P bằng bài toán P' giống như 
+P
+  + Bài toán P' chỉ khác bài toán P ở dữ liệu đầu vào, tức 
+là bài toán P' sẽ mang giá trị nhỏ dần hoặc tăng dần cho đến 
+khi nó chạm một cái ngưỡng nào đó. 
+
+  + Việc giải bài toán P' cũng được thực hiện theo các phân tích
+giống như P. 
+
+
+- Điều kiện dừng : Dãy các bài toán P' giống như P là hữu hạn 
+và sẽ dừng tại một bài toán xác định nào đó. 
+
+- Thuật toán tổng quát: 
+
+if(TRƯỜNG_HỢP_CƠ_SỞ){
+    - GIẢI QUYẾT TRƯỜNG HỢP SUY BIẾN - 
+}
+else{
+    - TIỀN XỬ LÍ ĐỆ QUY - 
+    - GỌI ĐỆ QUY - 
+    - XỬ LÍ HẬU ĐỆ QUY -
+
+}
+
++ Đệ quy tuyến tính : Gọi đệ quy một lần trong hàm 
+
+TÊN_HÀM ( - Các tham số - ){
+    if(ĐIỀU_KIỆN_DỪNG){
+        - Xử lí trường hợp suy biến - 
+    }
+    else{
+        - Thực hiện các công việc nếu có - 
+
+        TÊN_HÀM(- Các tham số - ); 
+
+        - Thực hiện các công việc nếu có - 
+    }
+}
+
+
++ Đệ quy nhị phân : Gọi đệ quy hai lần ( VD hai nửa ) => Chia để trị 
+
+TÊN_HÀM( - Các tham số - ){ 
+    if(ĐIỀU_KIỆN_DỪNG){
+        - Xử lí các trường hợp suy biến -
+    }
+    else{
+        - Thực hiện các công việc nếu có - 
+        TÊN_HÀM(- Các tham số -);
+        - Thực hiện các công việc nếu có - 
+        TÊN_HÀM(- Các tham số - ); 
+    }
+}
+
++ Đệ quy phi tuyến : Lời gọi được viết trong 1 vòng lặp => Quay lui 
+
+TÊN_HÀM( - Các tham số - ){
+    for(int i = 1; i <= n ; i++){
+        - Thực hiện một số công việc nếu có - 
+        if( - Điều kiện dừng -){
+            - Thực hiện các công việc trong điều kiện dừng - 
+
+        } 
+        else{
+            - Thực hiện các công việc nếu có  - 
+
+            TÊN_HÀM( - Các tham số - ); 
+        }
+    }
+}
+

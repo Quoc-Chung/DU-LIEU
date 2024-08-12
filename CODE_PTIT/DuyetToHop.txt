@@ -1,0 +1,46 @@
+- Bài yêu cầu duyệt tổ hợp các chập k của 1,2,...,n
+- Mỗi tổ hợp chập k của 1,2,...., N là một tập con K phần tử khác 
+nhau của 1,2,3,..N 
+
+- Ví dụ với N = 5, K = 3 ta sẽ có tổ hợp chập k của n là các tập con 
+gồm có k phần tử : 
+
+    1 2 3 
+    1 2 4
+    1 2 5 
+    1 3 4 
+    1 3 5
+    1 4 5
+    2 3 4
+    2 3 5
+    2 4 5
+    3 4 5
+
+- Bài này làm dễ nhất bằng cách sử dụng quay lui 
+
++ Bài toán này khác với quay lui nhị phân là mỗi một thành phần sẽ có 
+các lựa chọn khác nhau. 
++ Bài toán này là một phần của bài toán quay lui nhị phân nhưng nó 
+sẽ phát triển hơn. 
++ Thay vì số phép lựa chọn chỉ dừng lại ở "0" và "1" thì nó đã tăng 
+lên từ "1" ----> "n". 
+
++ Cấu hình đầu tiên  : 123 
++ Cấu hình cuối cùng : 345 
+
++ Mỗi một cấu hình sẽ có một lựa chọn khác nhau, và đặc biệt rằng một 
+cấu hình sẽ chỉ có k phần tử khác nhau. 
+
++ Trong một cấu hình thì phần tử đầu tiên luôn bé hơn phần tử thứ hai, 
+phần tử thứ hai luôn bé hơn phần tử thứ ba 
+
++ (Phần tử đầu tiên + 1) <=  (Phần tử thứ hai) 
++ (Phần tử thứ hai  + 1) <=  (Phần tử thứ ba) 
+
++ Cấu hình xi <= n - k + i 
+
+           x1 <= 5 - 3 + 1  tức là x1 sẽ luôn <= 3 
+           x2 <= 5 - 3 + 2  tức là x2 sẽ luôn <= 4 
+           x3 <= 5 - 3 + 3  tức là x3 sẽ luôn <= 5 
+
+

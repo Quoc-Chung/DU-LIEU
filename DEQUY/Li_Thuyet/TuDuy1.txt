@@ -1,0 +1,235 @@
+- Tư duy giải thuật đệ quy : "Một hàm được gọi lại chính nó để giải 
+quyết một bài toán con" .
+
+- Nguyên lí cơ bản : Chia bài toán thành các bài toán con nhỏ hơn, cho 
+đến khi đạt đến một điều kiện cơ sở(base case) mà có thể giải quyết 
+được một cách trực tiếp mà  không cần gọi lại chính nó. 
+
+- Các thành phần cơ bản của đệ quy : 
+  + Điều kiện dừng( Điều kiện cơ sở ) : Đây là điều kiện dừng của đệ quy. Khi hàm 
+đạt đến điều kiện này, nó sẽ không gọi lại chính nó nữa mà sẽ trả về một giá 
+trị trực tiếp. 
+
+  + Lời gọi đệ quy : Đây là phần trong hàm foji lại chính nó với một phiên bản  
+nhỏ hơn của bài toán 
+
+  => Mỗi lần gọi lại bài toán lại là một lần thu hẹp phạm vi, kích thước của bài 
+toán cho đến khi bài toán to ban đầu của chúng ta trở thành bài toán nhỏ nhất có thể. 
+
+
+*  Ví dụ : In ra các số từ 1 đến n bằng đệ quy : 
+
++ Bài toán nhỏ nhất : In ra các số từ 1 đến 1  
+=> Tức là in ra mỗi số 1 thôi. 
+
+
++ Điều kiện dừng của bài toán la : nếu cái số mà ta in ra hiện tại 
+mà nó > số n thì chương trình sẽ dừng lại không in nữa  sau đó ta sẽ tăng biến kia lên 
+và gọi hàm cho  nó tăng đến khi nào vi phạm điều kiện thì thôi. 
+
+
+void In_Mot_Den_N(int n, int current  = 1){
+    if(current > n){
+        return ;
+    }
+    cout << current<<" ";
+    In_Mot_Den_N(n,current+1);
+}
+
+
+In_Mot_Den_N(3,1) 
+    if(1 < 3) => Chưa vi phạm điều kiện dừng hàm  
+
+    in ra " 1 " 
+    In_Mot_Den_N(3,2) 
+        if(2 < 3) => Chưa vi phạm 
+        
+        in ra " 2 "
+        In_Mot_Den_N(3,3); 
+        if(3  == 3) => Chưa vi phạm điều kiện 
+
+        in ra " 3 "
+
+        In_Mot_Den_N(3,4); 
+        if(4 > 3) => Vi phạm điều kiện dừng => return. 
+
+- Tuân theo nguyên lí stack : Vào         
+------------------------------------------------------------------------------------>
+|
+| In_Mot_Den_N(3,1)    In_Mot_Den_N(3,2)   In_Mot_Den_N(3,3)  In_Mot_Den_N(3,4)
+|      
+------------------------------------------------------------------------------------>
+  
+in ra 1 (Kết thúc hàm)                 in ra 2 (chưa kết thúc hàm)                 in ra 3 (chưa kết thúc hàm)            4 > 3 Ket thuc   
+  
+
+int GiaiThua(int n){  // 5 * 4 *3 * 2 * 1 = 120 
+   if(n == 1){
+      return 1; 
+   }
+   return n* GiaiThua(n-1);
+}
+
+
+GiaiThua (3) 
+     if(n != 1) 
+
+     return n * GiaiThua(2) 
+                   if(n !=1 ) 
+                   return n* GiaiThua(1) z
+                                  if(n== 1) 
+                                  return 1;  
+                         
+----------------------------------------------------------       
+
+GiaiThua(3)   ---->    GiaiThua(2)    ----> GiaiThua(1)
+
+----------------------------------------------------------
+
+3* GiaiThua(2)         return 2*1                 return 1 
+
+
+void In_Mot_Den_N(int n, int current  = 1){
+    if(current > n){
+        return ;
+    }
+    cout << current<<" ";
+    In_Mot_Den_N(n,current+1);
+}
+
+
+void IN(int n){
+    if(n <1){
+        return; 
+   }
+   cout << n <<" "; 
+   IN(n-1);
+}
+
+------------------------------------------------------------------->>>>>
+|  IN(3)   IN(2)   IN(1)    IN(0)
+|
+------------------------------------------------------------------->>>>>
+
+
+IN(0) được gọi cuối cùng vi phạm <1 ket thuc ham 
+
+IN(1) được gọi tiếp theo không vi phạm 
+        -  In ra 1 
+        -  Gọi hàm IN(0) -> kết thúc hàm vì lời gọi hàm đã thực hiện xong
+
+
+IN(2) được gọi tiếp theo không vi phạm 
+        - In ra 2 
+        - Gọi hàm IN(1) -> kết thúc hàm vì lời gọi hàm đã thực hiện xong 
+
+
+IN(3) được gọi tiếp theo không vi phạm 
+
+        - In ra 3 
+        - Gọi hàm IN(2) -> Kết thúc  hàm  vì  lời gọi hàm đã thực hiện xong 
+
+
+
+int  TinhTongTu_Mot_Den_N (int n){
+    if(n == 1){
+        return 1; 
+    }
+    return n * TinhTongTu_Mot_Den_N(n-1);
+}
+
+
+
+void De_Quy(int n){
+    if(n > 0){
+        cout << n <<"  ";
+        De_Quy(n-1);
+    }
+}
+
+- Nếu gọi đệ quy :De_Quy(4) sẽ in ra 4   3    2   1 
++ Giải thích bằng stack : 
+
+----------------------------------------------------------------------
+
+
+De_Quy(4)    -> De_Quy(3)    -> De_Quy(2)    -> De_Quy(1)  Vi phạm kết thúc chương trình và lấy nó ra khỏi stack 
+- in ra 4       -  in ra 3      -  in ra 2      -  in ra 1 
+----------------------------------------------------------------------
+
+    
+void Ten_Ham(int n){
+
+       Ten_Ham(n - 1)      -hoặc-    Ten_Ham(n+1)     -hoặc-   Ten_Ham(n * 2);    
+}
+
+=> LÀM NHƯ NÀO THÌ LÀM NHƯNG CÁI LỜI GỌI ĐỆ QUY PHẢI CÓ THAM SỐ KHÁC THAM SỐ TRUYỀN VÀO  
+   HÀM ĐẦU VÀO. 
+
+
+int Ten_Ham(int n){
+    return   Ten_Ham(n+1  hoặc n-1 hoặc.... );
+}
+
+---------------------------------------------------------------------------
+
+int TONG(int n, int sum = 0) {
+    if (n >= 1) {
+        sum += n;
+        return TONG(n - 1, sum);
+    } else {
+        return sum;
+    }
+}
+
+TONG(4,sum = 0)
+        if( n = 4 > 1){
+        sum= 4;
+        return TONG(3,4)
+                if(n = 3 > 1){
+                sum = 7;
+                return TONG(2,7);
+                       if(n = 2 > 1){
+                       sum = 9;
+                       return TONG(1,9);
+                              if(n == 1 >=1){
+                              sum += 10;
+                              return TONG(0,10);
+                                     if(n = 0 vi phạm điều kiện)
+                                     else{
+                                        return 10; - Kết thúc chương trình 
+                                     }
+                              }
+                       }                
+               }
+           
+       }
+ 
+---------------------------------------------------------------------------------------------
+
+bool SoXuatHienMotLan(int a[], int n, int Gia_Tri_Xet, int Vi_Tri, int index = 0) {
+    if (index >= n) {
+        return true;
+    }
+    if (a[index] == Gia_Tri_Xet && index != Vi_Tri) {
+        return false;
+    }
+    return SoXuatHienMotLan(a, n, Gia_Tri_Xet, Vi_Tri, index + 1);
+}
+
+
+SoXuatHienMotLan(a, n, a[0], 0)  i = 0           vi_tri = 0 , index = 0
+    if(index  < n ){
+ 
+    }
+
+    if(a[0] == a[0] && index  == vitri){
+        - khong return false mà sẽ xét bên dưới - 
+    }
+    return SoXuatHienMotLan(a,n,a[0], 0, index + 1){
+           if()
+    }
+
+
+
+

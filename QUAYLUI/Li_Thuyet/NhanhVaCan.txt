@@ -1,0 +1,95 @@
+- Kĩ thuật nhánh cận (Branch và Bound ) là một phương pháp tìm 
+kiếm và tối ưu dùng để giải quyết các bài toán tổ hợp như bài 
+toán người du lịch , bài toán phân hoạch, và nhiêu bài toán tối 
+ưu khác. 
+
+- Kĩ thuật nhánh cận hoạt động dựa trên việc phân chia không gian 
+tìm kiếm thành các nhánh , và sử dụng cận (bound) để loại bỏ những 
+nhánh không thể chứa lời giải tốt hơn lời giải hiện tại.
+
+- Bài toán máy ATM tự động: 
+
++ Một máy ATM hiện có n (n <=20 ) tờ tiền có giá trị là
+t1,t2,t3,..., tn. Lập trình đưa ra kết quả trả ra số tiền
+đúng bằng s với số tờ sử dụng là ít nhất. 
+
+10  390 
+200 10 20 20 50 50 50 50 100 100 
+
+200 20 20 50 50 50 
+
+
+#include<bits/>stdc++.h>
+using namespace std;
+
+int n, *t;
+
+int s; 
+
+int *x, num , total;
+
+int *d;
+
+
+void OUT_PUT(int a[], int n){
+    for(int i = 0; i< n;i++){
+        cout  <<a[i] << " ";
+    }
+    cout << endl;
+}
+
+void GetMonney(int idx){
+  // duyệt qua các tờ tiền , lấy tờ thứ k chưa được chọn 
+
+  // đặt nó vào vị trí x[i]-> Đánh dấu i đã chọn -> total += x[i] , num++;
+
+  // điều kiện là nghiệm -> total == s ==> out put -> else -> GetMonney(i+1);
+
+  // phuc hoi num , total, d[i];
+
+  for(int i= 0;i< n;i++){
+    if(d[i] == false){
+        x[i] = t[i];
+        d[i] = true; 
+        num++;
+
+        total += x[i];
+
+        if(total == s){
+            OUT_PUT();
+        }
+        else{
+            GetMonney(idx + 1);
+        }
+    }
+  }
+
+
+}
+int main(){
+    cin >> t; 
+    num = 0; 
+    *t = new int[n];
+    
+   
+    *x = new int[n];
+
+     GetMonney(0);
+
+    *d  = new int[n];
+
+    for(int i = 0; i< n;i++){
+        d[i] = false;
+    }
+
+    for(int i =0; i< n ;i++){
+        cin >> t[i];
+    } 
+
+}
+
+- Mảng x lưu trữ kết quả hiện tại 
+
+- Một mảng d để đánh dấu xem tờ tiền đã lấy chưa 
+
+
